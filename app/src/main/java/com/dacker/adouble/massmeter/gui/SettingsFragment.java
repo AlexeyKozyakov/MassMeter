@@ -1,15 +1,15 @@
-package com.dacker.adouble.massmeter;
+package com.dacker.adouble.massmeter.gui;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dacker.adouble.massmeter.R;
 
-public class Settings extends Fragment {
+
+public class SettingsFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle saved) {

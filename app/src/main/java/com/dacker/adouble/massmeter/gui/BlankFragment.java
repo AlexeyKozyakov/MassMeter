@@ -1,10 +1,12 @@
-package com.dacker.adouble.massmeter;
+package com.dacker.adouble.massmeter.gui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.dacker.adouble.massmeter.R;
 
 public class BlankFragment extends Fragment {
 

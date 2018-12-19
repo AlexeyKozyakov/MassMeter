@@ -1,13 +1,17 @@
 package com.dacker.adouble.massmeter.core;
 
+import com.dacker.adouble.massmeter.db.Figure;
+import com.dacker.adouble.massmeter.db.Material;
 import com.dacker.adouble.massmeter.mxparser.Expression;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class Counter {
+public class Counter implements Serializable {
     private Material material;
     private Figure figure;
     private Expression expression;
+    private Map<String, Double> values;
 
     public double countMass() {
         return expression.calculate() * material.getDensity();
@@ -27,8 +31,35 @@ public class Counter {
     }
 
     public void setValues(Map<String, Double> values) {
+        this.values = values;
         for (Map.Entry<String, Double> value : values.entrySet()) {
             expression.defineArgument(value.getKey(), value.getValue());
         }
+    }
+
+    public Material getMaterial() {
+        return material;
+    }
+
+    public Figure getFigure() {
+        return figure;
+    }
+
+    public Map<String, Double> getValues() {
+        return values;
+    }
+
+    public boolean hasFigure() {
+        return figure != null;
+    }
+
+    public boolean hasMaterial() {
+        return material != null;
+    }
+
+    public boolean hasValues() {
+        if (values == null)
+            return false;
+        return values.isEmpty();
     }
 }

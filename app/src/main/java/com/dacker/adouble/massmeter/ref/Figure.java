@@ -5,6 +5,8 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.util.List;
+
 @Entity(tableName = "Figures")
 public class Figure {
 
@@ -21,7 +23,7 @@ public class Figure {
     private String formula;
 
     @ColumnInfo(name = "vars")
-    private String vars;
+    private List<String> vars;
 
     @ColumnInfo(name = "image")
     private String image;
@@ -29,7 +31,7 @@ public class Figure {
     @ColumnInfo(name = "refetence")
     private String reference;
 
-    public Figure(int id, String name, int cat_id, String formula, String vars, String image, String reference) {
+    public Figure(int id, String name, int cat_id, String formula, List<String> vars, String image, String reference) {
         this.id = id;
         this.cat_id = cat_id;
         this.name = name;
@@ -72,11 +74,11 @@ public class Figure {
         this.formula = formula;
     }
 
-    public String getVars() {
+    public List<String> getVars() {
         return vars;
     }
 
-    public void setVars(String vars) {
+    public void setVars(List<String> vars) {
         this.vars = vars;
     }
 

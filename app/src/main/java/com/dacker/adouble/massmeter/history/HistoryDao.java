@@ -20,7 +20,7 @@ public interface HistoryDao {
 
     @Delete
     public void deleteSize(Size size);
-    
+
 
     @Query("SELECT * FROM presets")                                                                                                     // ВОЗВРАЩАЕТ СПИСОК ВСЕХ ПРЕСЕТОВ
     public List<Preset> getAllPresets();

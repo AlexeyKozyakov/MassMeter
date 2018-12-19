@@ -1,12 +1,19 @@
 package com.dacker.adouble.massmeter;
 
+import android.arch.persistence.room.Room;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
+import com.dacker.adouble.massmeter.history.HistoryDataBase;
+import com.dacker.adouble.massmeter.ref.ReferenceDataBase;
+
 public class MainActivity extends AppCompatActivity {
+
+    public static ReferenceDataBase dataBase;
+    public static HistoryDataBase historyDataBase;
 
     private BlankFragment fragment = new BlankFragment();
 
@@ -16,7 +23,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        dataBase = Room.databaseBuilder(getApplicationContext(), ReferenceDataBase.class,"refdb").build();
+        historyDataBase = Room.databaseBuilder(getApplicationContext(), HistoryDataBase.class,"historydb").build();
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);

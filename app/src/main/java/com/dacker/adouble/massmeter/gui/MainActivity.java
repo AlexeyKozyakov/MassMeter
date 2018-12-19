@@ -9,55 +9,92 @@ import android.widget.Button;
 import com.dacker.adouble.massmeter.R;
 import com.dacker.adouble.massmeter.core.Counter;
 import com.dacker.adouble.massmeter.core.Figure;
+import com.dacker.adouble.massmeter.tabs.CalculatorTab;
+import com.dacker.adouble.massmeter.tabs.CounterTab;
+import com.dacker.adouble.massmeter.tabs.HistoryTab;
+import com.dacker.adouble.massmeter.tabs.ReferenceTab;
+import com.dacker.adouble.massmeter.tabs.SettingsTab;
+import com.dacker.adouble.massmeter.tabs.Tab;
+import com.dacker.adouble.massmeter.tabs.TabsIndex;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
+import java.util.Objects;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    private BlankFragment fragment = new BlankFragment();
-
-    private SettingsFragment settings = null;
-
-    private Button settingsButton;
+    private List<Tab> tabs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getSupportActionBar().hide();
+        removeTittle();
         setContentView(R.layout.activity_main);
-
-        Figure rectangle = new Figure(1, "rect", "a * b * c");
-        Counter counter = new Counter();
-        Map<String, Double> values = new HashMap<>();
-        values.put("a", 2.0);
-        values.put("b", 5.0);
-        values.put("c", 10.0);
-        counter.setFigure(rectangle);
-        counter.setValues(values);
-        Button button = findViewById(R.id.btn0);
-        button.setText(String.valueOf(counter.countVolume()));
-
-
-
-
-        //        getSupportFragmentManager().beginTransaction().
-//                add(R.id.fragment_container, fragment)
-//                .commit();
-//        settingsButton = findViewById(R.id.btn4);
-//        settingsButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (settings == null) {
-//                    settings = new SettingsFragment();
-//                }
-//                getSupportFragmentManager().beginTransaction().
-//                        replace(R.id.fragment_container, settings)
-//                        .commit();
-//            }
-//        });
+        initTabs();
+        showTab(TabsIndex.COUNTER);
+        initListeners();
 
     }
+
+    private void removeTittle() {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+    }
+
+    private void initTabs() {
+        tabs.add(new CounterTab());
+        tabs.add(new CalculatorTab());
+        tabs.add(new HistoryTab());
+        tabs.add(new ReferenceTab());
+        tabs.add(new SettingsTab());
+    }
+
+    private void showTab(TabsIndex index) {
+        tabs.get(index.ordinal()).show(this);
+    }
+
+    private void initListeners() {
+        Button counterButton = findViewById(R.id.counterButton);
+        Button calculatorButton = findViewById(R.id.calculatorButton);
+        Button historyButton = findViewById(R.id.historyButton);
+        Button referenceButton = findViewById(R.id.referenceButton);
+        Button settingsButton = findViewById(R.id.settingsButton);
+        counterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTab(TabsIndex.COUNTER);
+            }
+        });
+        calculatorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTab(TabsIndex.CALCULATOR);
+            }
+        });
+        historyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTab(TabsIndex.HISTORY);
+            }
+        });
+        referenceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTab(TabsIndex.REFERENCE);
+            }
+        });
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTab(TabsIndex.SETTINGS);
+            }
+        });
+    }
+
+
 }

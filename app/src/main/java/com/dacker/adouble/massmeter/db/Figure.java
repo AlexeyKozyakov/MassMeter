@@ -97,4 +97,22 @@ public class Figure {
     public void setReference(String reference) {
         this.reference = reference;
     }
+
+    public static Figure[] populateData() {
+        return new Figure[] {
+                new Figure(0, "Cube", 0, "x*x*x", "x", "Cube.png","Cube.txt"),
+                new Figure(1, "Parallelipipidus", 0, "h*a*b", "h a b", "Parallelipipidus.png","Parallelipipidus.txt"),
+                new Figure(2, "Figure1", 0,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
+                new Figure(3, "Figure2", 0,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
+                new Figure(4, "Figure3", 1,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
+                new Figure(5, "Figure4", 1,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
+                new Figure(6, "Figure5", 1,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
+                new Figure(7, "Figure16", 1,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
+                new Figure(8, "Figure1", 5,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
+                new Figure(9, "Figure2", 5,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
+                new Figure(10, "Figure3", 5,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
+                new Figure(11, "Figure4", 5,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
+                new Figure(12, "Figure5", 5,"4/3*pi*r", "r", "Ball.png","Ball.txt")
+        };
+    }
 }

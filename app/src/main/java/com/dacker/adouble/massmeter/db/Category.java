@@ -16,7 +16,11 @@ public class Category {
     @ColumnInfo(name = "type")
     private String type;
 
-
+    public Category(int id, String name, String type) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+    }
 
     public int getId() {
         return id;
@@ -40,5 +44,16 @@ public class Category {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public static Category[] populateData() {
+        return new Category[] {
+                new Category(0, "Common", "figure"),
+                new Category(1, "Polyhedra", "figure"),
+                new Category(5, "User", "figure"),
+                new Category(2, "Wood", "material"),
+                new Category(3, "Metal", "material"),
+                new Category(4, "Plastic", "material")
+        };
     }
 }

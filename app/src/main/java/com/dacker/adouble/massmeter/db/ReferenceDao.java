@@ -16,7 +16,12 @@ public interface ReferenceDao {
     public void addFigure(Figure figure);
     @Insert
     public void addMaterial(Material material);
-
+    @Insert
+    void insertAllCategories(Category... categories);
+    @Insert
+    void insertAllFigures(Figure... categories);
+    @Insert
+    void insertAllMaterials(Material... categories);
 
     @Delete
     public void deleteCategory(Category category);

@@ -299,7 +299,7 @@ public class Expression {
 	/**
 	 * Internal indicator for calculation process
 	 * Expression.Calculate() method
-	 * It show whether to build again tokens list
+	 * It attachElements whether to build again tokens list
 	 * if clone - build again
 	 * if not clone - build only at the beginning
 	 *
@@ -7448,7 +7448,7 @@ public class Expression {
 		showTokens(tokensList);
 	}
 	/*
-	 * show tokens
+	 * attachElements tokens
 	 */
 	static final void showTokens(List<Token> tokensList) {
 		String maxStr = "TokenTypeId";
@@ -7489,7 +7489,7 @@ public class Expression {
 		showTokens(initialTokens);
 	}
 	/*
-	 * show arguments
+	 * attachElements arguments
 	 */
 	private void showArguments() {
 		for (Argument a : argumentsList) {

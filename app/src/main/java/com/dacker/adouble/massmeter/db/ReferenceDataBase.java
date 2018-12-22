@@ -8,10 +8,10 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import java.sql.Ref;
+
 import java.util.concurrent.Executors;
 
-@Database(entities = {Category.class, Figure.class, Material.class}, version = 1)
+@Database(entities = {Category.class, Figure.class, Material.class, MaterialInfo.class, FigureInfo.class}, version = 1)
 public abstract class ReferenceDataBase extends RoomDatabase {
 
     private static ReferenceDataBase INSTANCE;
@@ -37,7 +37,9 @@ public abstract class ReferenceDataBase extends RoomDatabase {
                             public void run() {
                                 getInstance(context).referenceDao().insertAllCategories(Category.populateData());
                                 getInstance(context).referenceDao().insertAllFigures(Figure.populateData());
-                                getInstance(context).referenceDao().insertAllMaterials(Material.populateData());
+                                getInstance(context).referenceDao().insertAllMaterials(Material.populateData());         // СЮДА НЕ ЗАБУДЬ ЗАПОЛНИТЬ ЕЩЕ КАРТИНОЧКИ
+                                //getInstance(context).referenceDao().insertAllMaterialINFO(MaterialInfo.populateData());
+                                //getInstance(context).referenceDao().insertAllFigureINFO(FigureInfo.populateData());
                             }
                         });
                     }

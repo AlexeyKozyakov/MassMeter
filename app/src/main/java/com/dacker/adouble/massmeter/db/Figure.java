@@ -3,11 +3,11 @@ package com.dacker.adouble.massmeter.db;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
-import java.util.List;
 
-@Entity(tableName = "Figures")
+@Entity(tableName = "Figures", indices = {@Index(value = {"name"}, unique = true)})
 public class Figure {
 
     @PrimaryKey
@@ -25,20 +25,14 @@ public class Figure {
     @ColumnInfo(name = "vars")
     private String vars;
 
-    @ColumnInfo(name = "image")
-    private String image;
 
-    @ColumnInfo(name = "refetence")
-    private String reference;
 
-    public Figure(int id, String name, int catId, String formula, String vars, String image, String reference) {
+    public Figure(int id, String name, int catId, String formula, String vars) {
         this.id = id;
         this.catId = catId;
         this.name = name;
         this.formula = formula;
         this.vars = vars;
-        this.image = image;
-        this.reference = reference;
     }
 
 
@@ -82,37 +76,23 @@ public class Figure {
         this.vars = vars;
     }
 
-    public String getImage() {
-        return image;
-    }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
-        this.reference = reference;
-    }
 
     public static Figure[] populateData() {
         return new Figure[] {
-                new Figure(0, "Cube", 0, "x*x*x", "x", "Cube.png","Cube.txt"),
-                new Figure(1, "Parallelipipidus", 0, "h*a*b", "h a b", "Parallelipipidus.png","Parallelipipidus.txt"),
-                new Figure(2, "Figure1", 0,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
-                new Figure(3, "Figure2", 0,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
-                new Figure(4, "Figure3", 1,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
-                new Figure(5, "Figure4", 1,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
-                new Figure(6, "Figure5", 1,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
-                new Figure(7, "Figure16", 1,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
-                new Figure(8, "Figure1", 5,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
-                new Figure(9, "Figure2", 5,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
-                new Figure(10, "Figure3", 5,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
-                new Figure(11, "Figure4", 5,"4/3*pi*r", "r", "Ball.png","Ball.txt"),
-                new Figure(12, "Figure5", 5,"4/3*pi*r", "r", "Ball.png","Ball.txt")
+                new Figure(0, "Cube", 0, "x*x*x", "x"),
+                new Figure(1, "Parallelipipidus", 0, "h*a*b", "h a b"),
+                new Figure(2, "Figure1", 0,"4/3*pi*r", "r"),
+                new Figure(3, "Figure2", 0,"4/3*pi*r", "r"),
+                new Figure(4, "Figure3", 1,"4/3*pi*r", "r"),
+                new Figure(5, "Figure4", 1,"4/3*pi*r", "r"),
+                new Figure(6, "Figure5", 1,"4/3*pi*r", "r"),
+                new Figure(7, "Figure16", 1,"4/3*pi*r", "r"),
+                new Figure(8, "Figure11", 5,"4/3*pi*r", "r"),
+                new Figure(9, "Figure22", 5,"4/3*pi*r", "r"),
+                new Figure(10, "Figure31", 5,"4/3*pi*r", "r"),
+                new Figure(11, "Figure44", 5,"4/3*pi*r", "r"),
+                new Figure(12, "Figure56", 5,"4/3*pi*r", "r")
         };
     }
 }

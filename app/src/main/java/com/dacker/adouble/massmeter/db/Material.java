@@ -3,9 +3,10 @@ package com.dacker.adouble.massmeter.db;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "Materials")
+@Entity(tableName = "Materials", indices = {@Index(value = {"name"}, unique = true)})
 public class Material {
     @PrimaryKey
     private int id;

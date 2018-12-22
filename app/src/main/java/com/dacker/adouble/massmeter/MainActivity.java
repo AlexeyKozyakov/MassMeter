@@ -7,8 +7,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
-import com.dacker.adouble.massmeter.history.HistoryDataBase;
-import com.dacker.adouble.massmeter.ref.ReferenceDataBase;
+import com.dacker.adouble.massmeter.db.ReferenceDataBase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +25,10 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         dataBase = Room.databaseBuilder(getApplicationContext(), ReferenceDataBase.class,"refdb").build();
-        historyDataBase = Room.databaseBuilder(getApplicationContext(), HistoryDataBase.class,"historydb").build();
+        historyDataBase = Room.databaseBuilder(getApplicationContext(), HistoryDataBase.class,"historydb").allowMainThreadQueries().build();
+
+
+        System.out.println(getDatabasePath("hystorydb").getAbsolutePath());
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();

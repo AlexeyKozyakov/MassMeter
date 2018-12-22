@@ -1,4 +1,4 @@
-package com.dacker.adouble.massmeter.history;
+package com.dacker.adouble.massmeter.db;
 
 
 import android.arch.persistence.room.ColumnInfo;
@@ -17,6 +17,12 @@ public class Preset {
     @ColumnInfo(name = "material")
     private int material;
 
+    @ColumnInfo(name = "variables")
+    private String values;
+
+    public String getValues() { return values; }
+
+    public void setValues(String values) { this.values = values; }
 
     public int getId() {
         return id;

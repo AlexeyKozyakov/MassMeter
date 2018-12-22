@@ -1,17 +1,18 @@
-package com.dacker.adouble.massmeter.ref;
+package com.dacker.adouble.massmeter.db;
 
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "Materials")
+@Entity(tableName = "Materials", indices = {@Index(value = {"name"}, unique = true)})
 public class Material {
     @PrimaryKey
     private int id;
 
-    @ColumnInfo(name = "cat_id")
-    private int cat_id;
+    @ColumnInfo(name = "catId")
+    private int catId;
 
     @ColumnInfo(name = "name")
     private String name;
@@ -23,9 +24,9 @@ public class Material {
     private String reference;
 
 
-    public Material(int id, String name, int cat_id, double density, String reference) {
+    public Material(int id, String name, int catId, double density, String reference) {
         this.id = id;
-        this.cat_id = cat_id;
+        this.catId = catId;
         this.name = name;
         this.density = density;
         this.reference = reference;
@@ -37,12 +38,12 @@ public class Material {
         this.id = id;
     }
 
-    public int getCat_id() {
-        return cat_id;
+    public int getCatId() {
+        return catId;
     }
 
-    public void setCat_id(int cat_id) {
-        this.cat_id = cat_id;
+    public void setCatId(int catId) {
+        this.catId = catId;
     }
 
     public String getName() {
@@ -67,5 +68,18 @@ public class Material {
 
     public void setReference(String reference) {
         this.reference = reference;
+    }
+
+    public static Material[] populateData() {
+        return new Material[] {
+                new Material(0, "Ash", 2, 1.25, "Ash.txt"),
+                new Material(1, "Cedar", 2, 1.80, "Cedar.txt"),
+                new Material(2, "Fir", 2, 2.23, "Fir.txt"),
+                new Material(3, "Walnut", 2, 1.1, "Walnut.txt"),
+                new Material(4, "Pine", 2, 1.5, "Pine.txt"),
+                new Material(5, "Steel", 3, 5.25, "Steel.txt"),
+                new Material(5, "Bronze", 3, 4.15, "Ash.txt"),
+                new Material(5, "Alluminium", 3, 3.45, "Ash.txt"),
+        };
     }
 }

@@ -11,16 +11,16 @@ public class MaterialInfo {
     @PrimaryKey
     private int materialid;
 
-    @ColumnInfo(name = "image",typeAffinity = ColumnInfo.BLOB)
-    private byte[] image;
+    @ColumnInfo(name = "materialImage",typeAffinity = ColumnInfo.BLOB)
+    private byte[] materialImage;
 
-    @ColumnInfo(name = "image")
-    private String reference;
+    @ColumnInfo(name = "materialReference")
+    private String materialReference;
 
-    public MaterialInfo(int materialid, byte[] image, String reference) {
+    public MaterialInfo(int materialid, byte[] materialImage, String materialReference) {
         this.materialid = materialid;
-        this.image = image;
-        this.reference = reference;
+        this.materialImage = materialImage;
+        this.materialReference = materialReference;
     }
 
     public int getMaterialid() {
@@ -31,20 +31,20 @@ public class MaterialInfo {
         this.materialid = materialid;
     }
 
-    public byte[] getImage() {
-        return image;
+    public byte[] getMaterialImage() {
+        return materialImage;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setMaterialImage(byte[] materialImage) {
+        this.materialImage = materialImage;
     }
 
-    public String getReference() {
-        return reference;
+    public String getMaterialReference() {
+        return materialReference;
     }
 
-    public void setReference(String reference) {
-        this.reference = reference;
+    public void setMaterialReference(String materialReference) {
+        this.materialReference = materialReference;
     }
 
     /*    public static MaterialInfo[] populateData(){

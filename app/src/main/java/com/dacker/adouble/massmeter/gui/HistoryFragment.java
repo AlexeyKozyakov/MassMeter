@@ -26,4 +26,9 @@ public class HistoryFragment extends Fragment implements Tab{
     public void show(AppCompatActivity activity) {
         FragmentReplacer.setFragment(activity, this);
     }
+
+    @Override
+    public boolean handleBackClick() {
+        return false;
+    }
 }

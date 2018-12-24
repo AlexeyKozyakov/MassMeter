@@ -14,9 +14,13 @@ import com.dacker.adouble.massmeter.util.FragmentReplacer;
 
 public class SecondStepFragment extends Fragment implements Step{
 
+    private CounterTab tab;
+
     @Override
     public void onCreate(Bundle saved) {
         super.onCreate(saved);
+        tab = (CounterTab) getArguments().get("tab");
+        getArguments().clear();
     }
 
     @Override
@@ -25,24 +29,13 @@ public class SecondStepFragment extends Fragment implements Step{
         return inflater.inflate(R.layout.fragment_second_step, container, false);
     }
 
-
-    @Override
-    public void attachElements(View view) {
-
-    }
-
-    @Override
-    public boolean validate() {
-        return false;
-    }
-
-    @Override
-    public void setUserParams() {
-
-    }
-
     @Override
     public void show(AppCompatActivity activity) {
         FragmentReplacer.setFragment(activity, this);
+    }
+
+    @Override
+    public boolean handleBackClick() {
+        return false;
     }
 }

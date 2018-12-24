@@ -27,4 +27,9 @@ public class ReferenceFragment extends Fragment implements Tab{
         FragmentReplacer.setFragment(activity, this);
     }
 
+    @Override
+    public boolean handleBackClick() {
+        return false;
+    }
+
 }

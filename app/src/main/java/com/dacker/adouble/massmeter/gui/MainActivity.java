@@ -2,6 +2,7 @@ package com.dacker.adouble.massmeter.gui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton historyButton;
     ImageButton referenceButton;
     ImageButton settingsButton;
+    Tab currentTab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showTab(TabsIndex index) {
-        tabs.get(index.ordinal()).show(this);
+        currentTab = getTab(index);
+        currentTab.show(this);
+    }
+
+    private Tab getTab(TabsIndex index) {
+        return tabs.get(index.ordinal());
     }
 
     private void initListeners() {
@@ -126,5 +133,14 @@ public class MainActivity extends AppCompatActivity {
         pressedButtonRes = R.drawable.counter_icon;
         showTab(TabsIndex.COUNTER);
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK && currentTab.handleBackClick()) {
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 
 }

@@ -50,38 +50,54 @@
             android:layout_weight="10"
             android:id="@+id/search_figure"
             android:hint="@string/figure_search_tooltip"/>
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="69"
-            android:orientation="horizontal"
-            android:weightSum="100"
-            android:paddingTop="22dp"
-            android:paddingBottom="22dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp">
+            android:layout_weight="69">
+            <LinearLayout
+                android:id="@+id/categories_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:paddingTop="22dp"
+                android:paddingBottom="22dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp">
+                <ListView
+                    android:choiceMode="singleChoice"
+                    android:listSelector="#DDDDDD"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="40"
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/category_view"
+                    ></ListView>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#BBB"/>
+                <ListView
+                    android:choiceMode="singleChoice"
+                    android:listSelector="#DDDDDD"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="60"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/figure_view"></ListView>
+            </LinearLayout>
             <ListView
                 android:choiceMode="singleChoice"
                 android:listSelector="#DDDDDD"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="40"
-                android:layout_marginRight="5dp"
-                android:id="@+id/category_view"
-                ></ListView>
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#BBB"/>
-            <ListView
-                android:choiceMode="singleChoice"
-                android:listSelector="#DDDDDD"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="60"
-                android:layout_marginLeft="5dp"
-                android:id="@+id/figure_view"></ListView>
-        </LinearLayout>
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:visibility="gone"
+                android:id="@+id/figure_search"></ListView>
+        </FrameLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -90,7 +106,7 @@
             <Button
                 android:layout_width="130dp"
                 android:layout_height="53dp"
-                android:id="@+id/nextStepButton1"
+                android:id="@+id/next_button"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/next_button"
                 android:text="@string/nextButtonText"
@@ -105,7 +121,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="0dp"
-                android:layout_toRightOf="@+id/nextStepButton1"
+                android:layout_toRightOf="@+id/next_button"
                 android:src="@drawable/info_icon"
                 android:background="#FFF"/>
         </RelativeLayout>

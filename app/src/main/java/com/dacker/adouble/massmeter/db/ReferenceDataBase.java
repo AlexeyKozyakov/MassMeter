@@ -11,7 +11,7 @@ import android.support.annotation.NonNull;
 
 import java.util.concurrent.Executors;
 
-@Database(entities = {Category.class, Figure.class, Material.class, MaterialInfo.class, FigureInfo.class}, version = 1)
+@Database(entities = {Category.class, Preset.class, Figure.class, Material.class, MaterialInfo.class, FigureInfo.class}, version = 1)
 public abstract class ReferenceDataBase extends RoomDatabase {
 
     private static ReferenceDataBase INSTANCE;

@@ -1,13 +1,12 @@
 package com.dacker.adouble.massmeter.core;
 
+import com.dacker.adouble.massmeter.core.mxparser.Expression;
 import com.dacker.adouble.massmeter.db.Figure;
 import com.dacker.adouble.massmeter.db.Material;
-import com.dacker.adouble.massmeter.mxparser.Expression;
 
-import java.io.Serializable;
 import java.util.Map;
 
-public class Counter implements Serializable {
+public class Counter {
     private Material material;
     private Figure figure;
     private Expression expression;

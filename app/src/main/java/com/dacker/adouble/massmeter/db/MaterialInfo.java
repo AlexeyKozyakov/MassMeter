@@ -3,6 +3,14 @@ package com.dacker.adouble.massmeter.db;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.content.Context;
+
+import com.opencsv.CSVReader;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity(tableName = "MaterialInfo")
@@ -11,29 +19,16 @@ public class MaterialInfo {
     @PrimaryKey
     private int materialid;
 
-<<<<<<< HEAD
-    @ColumnInfo(name = "image",typeAffinity = ColumnInfo.BLOB)
-    private byte[] image;
-
-    @ColumnInfo(name = "image")
-    private String reference;
-
-    public MaterialInfo(int materialid, byte[] image, String reference) {
-        this.materialid = materialid;
-        this.image = image;
-        this.reference = reference;
-=======
-    @ColumnInfo(name = "materialImage",typeAffinity = ColumnInfo.BLOB)
-    private byte[] materialImage;
+    @ColumnInfo(name = "materialImage")
+    private String materialImage;
 
     @ColumnInfo(name = "materialReference")
     private String materialReference;
 
-    public MaterialInfo(int materialid, byte[] materialImage, String materialReference) {
+    public MaterialInfo(int materialid, String materialImage, String materialReference) {
         this.materialid = materialid;
         this.materialImage = materialImage;
         this.materialReference = materialReference;
->>>>>>> origin/master
     }
 
     public int getMaterialid() {
@@ -44,27 +39,11 @@ public class MaterialInfo {
         this.materialid = materialid;
     }
 
-<<<<<<< HEAD
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
-        this.reference = reference;
-=======
-    public byte[] getMaterialImage() {
+    public String getMaterialImage() {
         return materialImage;
     }
 
-    public void setMaterialImage(byte[] materialImage) {
+    public void setMaterialImage(String materialImage) {
         this.materialImage = materialImage;
     }
 
@@ -74,15 +53,22 @@ public class MaterialInfo {
 
     public void setMaterialReference(String materialReference) {
         this.materialReference = materialReference;
->>>>>>> origin/master
     }
 
-    /*    public static MaterialInfo[] populateData(){
-        return new MaterialInfo[]{
-                new MaterialInfo(,,);
+    public static MaterialInfo[] populateData(Context context){
+       /* try {
+            CSVReader reader = new CSVReader(new InputStreamReader(context.getAssets().open("material_info.csv")));
+            List<MaterialInfo> materialInfos = new ArrayList<>();
+            String [] row;
+            while ((row = reader.readNext()) != null) {
+                materialInfos.add(new MaterialInfo(Integer.valueOf(row[0]), row[1], row[2])));
+            }
+            return materialInfos.toArray(new Material[0]);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        */
+        return null;
     }
-   */
 
 }
-

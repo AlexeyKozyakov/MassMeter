@@ -82,7 +82,11 @@ public interface ReferenceDao {
     @Query("SELECT * FROM Presets WHERE Presets.id = :id")                                                                              // ВОЗВРАЩАЕТ ПРЕСЕТ ПО ID ПРЕСЕТА
     public Preset getPresetById(int id);
 
+<<<<<<< HEAD
     @Query("SELECT * FROM presets")                                                                                                     // ВОЗВРАЩАЕТ СПИСОК ВСЕХ ПРЕСЕТОВ
+=======
+    @Query("SELECT * FROM Presets")                                                                                                     // ВОЗВРАЩАЕТ СПИСОК ВСЕХ ПРЕСЕТОВ
+>>>>>>> origin/master
     public List<Preset> getAllPresets();
 
     @Query("SELECT * FROM FigureInfo WHERE figureid = :id")                                                                             // КАРТИНОЧКУ И ОПИСАНИЕ ФИГУРЫ ПО ID

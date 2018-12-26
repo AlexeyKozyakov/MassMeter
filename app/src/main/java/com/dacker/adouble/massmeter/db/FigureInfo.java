@@ -11,6 +11,7 @@ public class FigureInfo {
     @PrimaryKey
     private int figureid;
 
+<<<<<<< HEAD
     @ColumnInfo(name = "image",typeAffinity = ColumnInfo.BLOB)
     private byte[] image;
 
@@ -21,6 +22,18 @@ public class FigureInfo {
         this.figureid = figureid;
         this.image = image;
         this.reference = reference;
+=======
+    @ColumnInfo(name = "figureImage",typeAffinity = ColumnInfo.BLOB)
+    private byte[] figureImage;
+
+    @ColumnInfo(name = "figureReference")
+    private String figureReference;
+
+    public FigureInfo(int figureid, byte[] figureImage, String figureReference) {
+        this.figureid = figureid;
+        this.figureImage = figureImage;
+        this.figureReference = figureReference;
+>>>>>>> origin/master
     }
 
     public int getFigureid() {
@@ -31,6 +44,7 @@ public class FigureInfo {
         this.figureid = figureid;
     }
 
+<<<<<<< HEAD
     public byte[] getImage() {
         return image;
     }
@@ -45,6 +59,22 @@ public class FigureInfo {
 
     public void setReference(String reference) {
         this.reference = reference;
+=======
+    public byte[] getFigureImage() {
+        return figureImage;
+    }
+
+    public void setFigureImage(byte[] figureImage) {
+        this.figureImage = figureImage;
+    }
+
+    public String getFigureReference() {
+        return figureReference;
+    }
+
+    public void setFigureReference(String figureReference) {
+        this.figureReference = figureReference;
+>>>>>>> origin/master
     }
 
 

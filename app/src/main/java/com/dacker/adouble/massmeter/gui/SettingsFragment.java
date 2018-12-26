@@ -1,15 +1,17 @@
-package com.dacker.adouble.massmeter;
+package com.dacker.adouble.massmeter.gui;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dacker.adouble.massmeter.R;
+import com.dacker.adouble.massmeter.util.FragmentReplacer;
 
-public class Settings extends Fragment {
+
+public class SettingsFragment extends Fragment implements Tab{
 
     @Override
     public void onCreate(Bundle saved) {
@@ -19,8 +21,17 @@ public class Settings extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_settings, container, false);
+    }
+
+    @Override
+    public void show(AppCompatActivity activity) {
+        FragmentReplacer.setFragment(activity, this);
+    }
+
+    @Override
+    public boolean handleBackClick() {
+        return false;
     }
 
 }

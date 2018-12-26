@@ -7,5 +7,7 @@
     <string name="firstStepName">Figure</string>
     <string name="nextButtonText">Next</string>
     <string name="figure_search_tooltip">Type to search</string>
-
+    <string name="historyName">Presets</string>
+    <string name="deletePresetText">Delete Preset</string>
+    <string name="openPresetText">Open</string>
 </resources>

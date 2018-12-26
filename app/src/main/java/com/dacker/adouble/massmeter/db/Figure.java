@@ -5,6 +5,14 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.content.Context;
+
+import com.opencsv.CSVReader;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity(tableName = "Figures", indices = {@Index(value = {"name"}, unique = true)})
@@ -78,21 +86,18 @@ public class Figure {
 
 
 
-    public static Figure[] populateData() {
-        return new Figure[] {
-                new Figure(0, "Cube", 0, "x*x*x", "x"),
-                new Figure(1, "Parallelipipidus", 0, "h*a*b", "h a b"),
-                new Figure(2, "Figure1", 0,"4/3*pi*r", "r"),
-                new Figure(3, "Figure2", 0,"4/3*pi*r", "r"),
-                new Figure(4, "Figure3", 1,"4/3*pi*r", "r"),
-                new Figure(5, "Figure4", 1,"4/3*pi*r", "r"),
-                new Figure(6, "Figure5", 1,"4/3*pi*r", "r"),
-                new Figure(7, "Figure16", 1,"4/3*pi*r", "r"),
-                new Figure(8, "Figure11", 5,"4/3*pi*r", "r"),
-                new Figure(9, "Figure22", 5,"4/3*pi*r", "r"),
-                new Figure(10, "Figure31", 5,"4/3*pi*r", "r"),
-                new Figure(11, "Figure44", 5,"4/3*pi*r", "r"),
-                new Figure(12, "Figure56", 5,"4/3*pi*r", "r")
-        };
+    public static Figure[] populateData(Context context) {
+        try {
+            CSVReader reader = new CSVReader(new InputStreamReader(context.getAssets().open("figures.csv")));
+            List<Figure> figureList = new ArrayList<>();
+            String [] row;
+            while ((row = reader.readNext()) != null) {
+                figureList.add(new Figure(Integer.valueOf(row[0]), row[1], Integer.valueOf(row[2]),  row[3], row[4]));
+            }
+            return figureList.toArray(new Figure[0]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

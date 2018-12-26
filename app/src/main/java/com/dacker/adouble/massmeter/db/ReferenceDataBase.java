@@ -35,11 +35,11 @@ public abstract class ReferenceDataBase extends RoomDatabase {
                         Executors.newSingleThreadScheduledExecutor().execute(new Runnable() {
                             @Override
                             public void run() {
-                                getInstance(context).referenceDao().insertAllCategories(Category.populateData());
-                                getInstance(context).referenceDao().insertAllFigures(Figure.populateData());
-                                getInstance(context).referenceDao().insertAllMaterials(Material.populateData());         // СЮДА НЕ ЗАБУДЬ ЗАПОЛНИТЬ ЕЩЕ КАРТИНОЧКИ
-                                //getInstance(context).referenceDao().insertAllMaterialINFO(MaterialInfo.populateData());
-                                //getInstance(context).referenceDao().insertAllFigureINFO(FigureInfo.populateData());
+                                getInstance(context).referenceDao().insertAllCategories(Category.populateData(context));
+                                getInstance(context).referenceDao().insertAllFigures(Figure.populateData(context));
+                                getInstance(context).referenceDao().insertAllMaterials(Material.populateData(context));
+                                getInstance(context).referenceDao().insertAllMaterialINFO(MaterialInfo.populateData(context));
+                                getInstance(context).referenceDao().insertAllFigureINFO(FigureInfo.populateData(context));
                             }
                         });
                     }

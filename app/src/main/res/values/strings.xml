@@ -7,5 +7,9 @@
     <string name="firstStepName">Figure</string>
     <string name="nextButtonText">Next</string>
     <string name="figure_search_tooltip">Type to search</string>
+    <string name="dimensions_step_tittle">Dimensions</string>
+    <string name="save_preset_text">Save preset</string>
+    <string name="volume_placeholder">Vol. %1$.2f</string>
+    <string name="variable_placeholder">%1$s =</string>
 
 </resources>

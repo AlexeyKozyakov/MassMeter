@@ -4,6 +4,15 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.content.Context;
+
+import com.opencsv.CSVReader;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 @Entity(tableName = "Categories", indices = {@Index(value = {"name"}, unique = true)})
 public class Category {
@@ -47,14 +56,18 @@ public class Category {
         this.type = type;
     }
 
-    public static Category[] populateData() {
-        return new Category[] {
-                new Category(0, "Common", "figure"),
-                new Category(1, "Polyhedra", "figure"),
-                new Category(5, "User", "figure"),
-                new Category(2, "Wood", "material"),
-                new Category(3, "Metal", "material"),
-                new Category(4, "Plastic", "material")
-        };
+    public static Category[] populateData(Context context) {
+        try {
+            CSVReader reader = new CSVReader(new InputStreamReader(context.getAssets().open("categories.csv")));
+            List<Category> categoryList = new ArrayList<>();
+            String [] row;
+            while ((row = reader.readNext()) != null) {
+                categoryList.add(new Category(Integer.valueOf(row[0]), row[1], row[2]));
+            }
+            return categoryList.toArray(new Category[0]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

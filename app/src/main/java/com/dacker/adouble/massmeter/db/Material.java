@@ -5,6 +5,14 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.content.Context;
+
+import com.opencsv.CSVReader;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(tableName = "Materials", indices = {@Index(value = {"name"}, unique = true)})
 public class Material {
@@ -20,16 +28,11 @@ public class Material {
     @ColumnInfo(name = "density")
     private double density;
 
-    @ColumnInfo(name = "refetence")
-    private String reference;
-
-
-    public Material(int id, String name, int catId, double density, String reference) {
+    public Material(int id, String name, int catId, double density) {
         this.id = id;
         this.catId = catId;
         this.name = name;
         this.density = density;
-        this.reference = reference;
     }
 
     public int getId() { return id; }
@@ -62,24 +65,18 @@ public class Material {
         this.density = density;
     }
 
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
-        this.reference = reference;
-    }
-
-    public static Material[] populateData() {
-        return new Material[] {
-                new Material(0, "Ash", 2, 1.25, "Ash.txt"),
-                new Material(1, "Cedar", 2, 1.80, "Cedar.txt"),
-                new Material(2, "Fir", 2, 2.23, "Fir.txt"),
-                new Material(3, "Walnut", 2, 1.1, "Walnut.txt"),
-                new Material(4, "Pine", 2, 1.5, "Pine.txt"),
-                new Material(5, "Steel", 3, 5.25, "Steel.txt"),
-                new Material(5, "Bronze", 3, 4.15, "Ash.txt"),
-                new Material(5, "Alluminium", 3, 3.45, "Ash.txt"),
-        };
+    public static Material[] populateData(Context context) {
+        try {
+            CSVReader reader = new CSVReader(new InputStreamReader(context.getAssets().open("materials.csv")));
+            List<Material> materialList = new ArrayList<>();
+            String [] row;
+            while ((row = reader.readNext()) != null) {
+                materialList.add(new Material(Integer.valueOf(row[0]), row[1], Integer.valueOf(row[2]), Double.valueOf(row[3])));
+            }
+            return materialList.toArray(new Material[0]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

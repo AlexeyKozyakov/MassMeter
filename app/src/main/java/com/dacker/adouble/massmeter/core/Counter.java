@@ -11,6 +11,13 @@ public class Counter {
     private Figure figure;
     private Expression expression;
     private Map<String, Double> values;
+    private static Counter COUNTER = new Counter();
+
+    private Counter() {}
+
+    public static Counter getCounter() {
+        return COUNTER;
+    }
 
     public double countMass() {
         return expression.calculate() * material.getDensity();

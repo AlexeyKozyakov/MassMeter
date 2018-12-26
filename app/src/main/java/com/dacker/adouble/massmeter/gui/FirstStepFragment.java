@@ -10,16 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import com.dacker.adouble.massmeter.R;
+import com.dacker.adouble.massmeter.core.Counter;
 import com.dacker.adouble.massmeter.db.Category;
 import com.dacker.adouble.massmeter.db.Figure;
 import com.dacker.adouble.massmeter.db.ReferenceDataBase;
 import com.dacker.adouble.massmeter.util.FragmentReplacer;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,30 +26,19 @@ import java.util.Map;
 public class FirstStepFragment extends Fragment implements Step {
 
 
-    private List<Category> categories;
-    private List<Figure> figures;
-    private List<String> categoriesNames;
-    private Map<String, Figure> allFigures;
-    private ArrayAdapter<String> categoryAdapter;
-    private ArrayAdapter<String> figuresAdapter;
+    private Map<String, Integer> categories;
+    private Map<String, Figure> figures;
+    private SingleSelectionAdapter categoriesAdapter;
+    private SingleSelectionAdapter figuresAdapter;
+    private SingleSelectionAdapter searchAdapter;
     private ReferenceDataBase dataBase;
+    private LinearLayout centerLayout;
     private ListView categoryListView;
     private ListView figureListView;
+    private ListView searchListView;
     private SearchView searchView;
-    private ListView figureSearch;
-    private ArrayAdapter searchAdapter;
-    private LinearLayout categoriesLayout;
-    private boolean searching;
-    private Figure selectedFigure;
-    private CounterTab tab;
     private AppCompatButton nextButton;
-
-    @Override
-    public void onCreate(Bundle saved) {
-        super.onCreate(saved);
-        tab = (CounterTab) getArguments().get("tab");
-        getArguments().clear();
-    }
+    private boolean searching;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,105 +50,71 @@ public class FirstStepFragment extends Fragment implements Step {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        dataBase = ReferenceDataBase.getInstance(getActivity().getApplicationContext());
+        dataBase = ReferenceDataBase.getInstance(getActivity());
+        searching = false;
+        categories = new HashMap<>();
+        figures = new HashMap<>();
         findViews();
-        loadCategories();
-        loadFigures();
-        setupCategoryView();
-        setupFiguresView();
-        setupFiguresSearch();
+        setupCategoryListView();
+        setupFiguresListView();
+        setupSearchListView();
         setupSearchView();
         setupNextButton();
     }
 
     private void findViews() {
-        categoriesLayout = getActivity().findViewById(R.id.categories_layout);
+        centerLayout = getActivity().findViewById(R.id.categories_layout);
         categoryListView = getActivity().findViewById(R.id.category_view);
         figureListView = getActivity().findViewById(R.id.figure_view);
-        figureSearch = getActivity().findViewById(R.id.figure_search);
+        searchListView = getActivity().findViewById(R.id.figure_search);
         searchView = getActivity().findViewById(R.id.search_figure);
         nextButton = getActivity().findViewById(R.id.next_button);
     }
 
-    private void setupNextButton() {
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (searching) {
-                    String selected = (String) searchAdapter.getItem(figureSearch.getCheckedItemPosition());
-                    if (selected == null) {
-                        return;
-                    }
-                    tab.setFigure(allFigures.get(selected));
-                } else {
-                    if (selectedFigure == null) {
-                        return;
-                    }
-                    tab.setFigure(selectedFigure);
-                }
-                tab.nextStep();
-            }
-        });
-    }
-
-    private void setupCategoryView() {
-        categoryAdapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1);
-        categoryAdapter.addAll(categoriesNames);
-        categoryListView.setAdapter(categoryAdapter);
-        categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                onCategoryClick((int)id);
-            }
-        });
-    }
-
-    private void loadCategories() {
-        categories = ReferenceDataBase.getInstance(getActivity().getApplicationContext())
-                .referenceDao().getFigureCategories();
-        categoriesNames = new ArrayList<>();
-        for (Category category : categories) {
-            categoriesNames.add(category.getName());
+    private void openFigures(int position) {
+        categoriesAdapter.setPosition(position);
+        List<Figure> figureList = dataBase.referenceDao().
+                getFiguresFromCategory(categories.get(categoriesAdapter.getSelectedName()));
+        figuresAdapter.clear();
+        for (Figure figure : figureList) {
+            figuresAdapter.add(figure.getName());
         }
     }
 
-    private void setupFiguresView() {
-        figuresAdapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1);
+    private void setupCategoryListView() {
+        categoriesAdapter = new SingleSelectionAdapter(getActivity());
+        categoryListView.setAdapter(categoriesAdapter);
+        categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                openFigures(position);
+                figuresAdapter.setPosition(0);
+            }
+        });
+    }
+
+    private void setupFiguresListView() {
+        figuresAdapter = new SingleSelectionAdapter(getActivity());
         figureListView.setAdapter(figuresAdapter);
         figureListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedFigure = figures.get((int)id);
+                figuresAdapter.setPosition(position);
             }
         });
+
     }
 
-    private void setupFiguresSearch() {
-        searching = false;
-        figureSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    private void setupSearchListView() {
+        searchAdapter = new SingleSelectionAdapter(getActivity());
+        searchListView.setAdapter(searchAdapter);
+        searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                searchAdapter.setPosition(position);
                 searchView.clearFocus();
             }
         });
-        searchAdapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1);
-        searchAdapter.addAll(allFigures.keySet());
-        figureSearch.setAdapter(searchAdapter);
-    }
-
-    private void setSeaching() {
-        searching = true;
-        categoriesLayout.setVisibility(View.GONE);
-        figureSearch.setVisibility(View.VISIBLE);
-    }
-
-    private void resetSearching() {
-        searching = false;
-        figureSearch.setVisibility(View.GONE);
-        categoriesLayout.setVisibility(View.VISIBLE);
     }
 
     private void setupSearchView() {
@@ -189,45 +143,96 @@ public class FirstStepFragment extends Fragment implements Step {
         });
     }
 
-    private void loadFigures() {
-        allFigures = new HashMap<>();
-        for (Figure figure : dataBase.referenceDao().getAllFigures()) {
-            allFigures.put(figure.getName(), figure);
-        }
+    private void setupNextButton() {
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (searching && searchAdapter.selected()) {
+                    String selected = searchAdapter.getSelectedName();
+                    Counter.getCounter().setFigure(figures.get(selected));
+                    ((MainActivity)getActivity()).nextCounterStep();
+                } else if (!searching && figuresAdapter.selected()) {
+                    String selected = figuresAdapter.getSelectedName();
+                    Counter.getCounter().setFigure(figures.get(selected));
+                    ((MainActivity)getActivity()).nextCounterStep();
+                }
+            }
+        });
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        if (getArguments() == null) {
+            setArguments(new Bundle());
+        }
+        getArguments().putBoolean("searching", searching);
+        getArguments().putInt("selectedCategory", categoriesAdapter.getPosition());
+        getArguments().putInt("selectedFigure", figuresAdapter.getPosition());
+        if (searching) {
+            getArguments().putInt("searchedFigure", searchAdapter.getPosition());
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        selectedFigure = null;
         loadCategories();
         loadFigures();
-        categoryAdapter.clear();
-        categoryAdapter.addAll(categoriesNames);
-        figuresAdapter.notifyDataSetChanged();
-        figuresAdapter.clear();
-        figuresAdapter.notifyDataSetChanged();
+        if (getArguments() != null) {
+            searching = getArguments().getBoolean("searching");
+            if (searching) {
+                int searchPos = getArguments().getInt("searchedFigure");
+                setSeaching();
+                if (searchPos != -1) {
+                    searchAdapter.getFilter().filter(searchView.getQuery());
+                    searchAdapter.setPosition(searchPos);
+                }
+            }
+            int catPos = getArguments().getInt("selectedCategory");
+            if (catPos != -1) {
+                categoriesAdapter.setPosition(catPos);
+                openFigures(categoriesAdapter.getPosition());
+                figuresAdapter.setPosition(getArguments().getInt("selectedFigure"));
+            }
+        }
+    }
+
+    private void loadCategories() {
+        List<Category> categoryList = ReferenceDataBase.getInstance(getActivity())
+                .referenceDao().getFigureCategories();
+        for (Category category : categoryList) {
+            categories.put(category.getName(), category.getId());
+        }
+        categoriesAdapter.clear();
+        categoriesAdapter.addAll(categories.keySet());
+    }
+
+    private void setSeaching() {
+        searching = true;
+        centerLayout.setVisibility(View.GONE);
+        searchListView.setVisibility(View.VISIBLE);
+    }
+
+    private void resetSearching() {
+        searching = false;
+        searchListView.setVisibility(View.GONE);
+        centerLayout.setVisibility(View.VISIBLE);
+    }
+
+    private void loadFigures() {
+        List<Figure> figuresList = ReferenceDataBase.getInstance(getActivity())
+                .referenceDao().getAllFigures();
+        for (Figure figure : figuresList) {
+            figures.put(figure.getName(), figure);
+        }
+        searchAdapter.clear();
+        searchAdapter.addAll(figures.keySet());
     }
 
     @Override
     public void show(AppCompatActivity activity) {
         FragmentReplacer.setFragment(activity, this);
-    }
-
-    private void onCategoryClick(int id) {
-        figures = dataBase.referenceDao().getFiguresFromCategory(categories.get(id).getId());
-        List<String> figuresNames = new ArrayList<>();
-        for (Figure figure : figures) {
-            figuresNames.add(figure.getName());
-        }
-        figuresAdapter.clear();
-        figuresAdapter.addAll(figuresNames);
-        figuresAdapter.notifyDataSetChanged();
     }
 
     public boolean handleBackClick() {
@@ -237,4 +242,5 @@ public class FirstStepFragment extends Fragment implements Step {
         }
         return false;
     }
+
 }

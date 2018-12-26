@@ -14,13 +14,9 @@ import com.dacker.adouble.massmeter.util.FragmentReplacer;
 
 public class ThirdStepFragment extends Fragment implements Step{
 
-    private CounterTab tab;
-
     @Override
     public void onCreate(Bundle saved) {
         super.onCreate(saved);
-        tab = (CounterTab) getArguments().get("tab");
-        getArguments().clear();
     }
 
     @Override

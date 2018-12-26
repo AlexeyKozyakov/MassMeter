@@ -66,7 +66,6 @@
                 android:paddingRight="12dp">
                 <ListView
                     android:choiceMode="singleChoice"
-                    android:listSelector="#DDDDDD"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="40"
@@ -79,7 +78,6 @@
                     android:background="#BBB"/>
                 <ListView
                     android:choiceMode="singleChoice"
-                    android:listSelector="#DDDDDD"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="60"
@@ -88,7 +86,6 @@
             </LinearLayout>
             <ListView
                 android:choiceMode="singleChoice"
-                android:listSelector="#DDDDDD"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="12dp"
@@ -114,13 +111,13 @@
                 />
 
             <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="53dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="24dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="6.5dp"
                 android:layout_toRightOf="@+id/next_button"
                 android:src="@drawable/info_icon"
                 android:background="#FFF"/>

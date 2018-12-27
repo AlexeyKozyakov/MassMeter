@@ -27,7 +27,7 @@ public abstract class ReferenceDataBase extends RoomDatabase {
     private static ReferenceDataBase buildDatabase(final Context context) {
         return Room.databaseBuilder(context,
                 ReferenceDataBase.class,
-                "reference-database")
+                "reference-db")
                 .addCallback(new Callback() {
                     @Override
                     public void onCreate(@NonNull SupportSQLiteDatabase db) {

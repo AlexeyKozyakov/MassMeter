@@ -3,12 +3,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gui.HistoryFragment">
+    tools:context=".gui.FirstStepFragment"
+    android:background="#FFF">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="History" />
+        android:weightSum="100"
+        android:orientation="vertical"
+        android:focusableInTouchMode="true"
+        android:id="@+id/first_step_layout">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="11"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/historyTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/historyName"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:textColor="#000"
+                android:textSize="29dp" />
+            <Button
+                android:id="@+id/delete_preset"
+                android:layout_width="110dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/historyTitle"
+                android:background="@drawable/next_button"
+                android:text="@string/deletePresetText"
+                android:textColor="@drawable/next_button_text_color"
+                />
+        </RelativeLayout>
+
+        <ListView
+            android:choiceMode="singleChoice"
+            android:listSelector="#DDDDDD"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="78"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/preset_view"></ListView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="11"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/open_preset"
+                android:layout_width="165dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/openPresetText"
+                android:textColor="@drawable/next_button_text_color"
+                android:background="@drawable/next_button"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </FrameLayout>

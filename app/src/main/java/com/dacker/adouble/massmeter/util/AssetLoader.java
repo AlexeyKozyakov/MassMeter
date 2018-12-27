@@ -7,6 +7,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 
+import com.dacker.adouble.massmeter.db.Figure;
+import com.dacker.adouble.massmeter.db.FigureInfo;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -36,6 +39,14 @@ public class AssetLoader {
             }
         }
         return directory.getAbsolutePath();
+    }
+
+    public static Bitmap loadImageForFigure(Context context, FigureInfo info) {
+        if (info.getBuiltIn()) {
+            return loadImageFromAssets(context, info.getFigureImage());
+        } else {
+            return loadImageFromInternalStorage(info.getFigureImage());
+        }
     }
 
     public static Bitmap loadImageFromInternalStorage(String path) {

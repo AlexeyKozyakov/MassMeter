@@ -25,10 +25,14 @@ public class FigureInfo {
     @ColumnInfo(name = "figureReference")
     private String figureReference;
 
-    public FigureInfo(int figureid, String figureImage, String figureReference) {
+    @ColumnInfo(name = "builtIn")
+    private boolean builtIn;
+
+    public FigureInfo(int figureid, String figureImage, String figureReference, boolean builtIn) {
         this.figureid = figureid;
         this.figureImage = figureImage;
         this.figureReference = figureReference;
+        this.builtIn = builtIn;
     }
 
     public int getFigureid() {
@@ -55,6 +59,13 @@ public class FigureInfo {
         this.figureReference = figureReference;
     }
 
+    public boolean getBuiltIn() {
+        return builtIn;
+    }
+
+    public void setBuiltIn(boolean builtIn) {
+        this.builtIn = builtIn;
+    }
 
     public static FigureInfo[] populateData(Context context){
         try {
@@ -62,7 +73,7 @@ public class FigureInfo {
             List<FigureInfo> figureInfoList = new ArrayList<>();
             String [] row;
             while ((row = reader.readNext()) != null) {
-                figureInfoList.add(new FigureInfo(Integer.valueOf(row[0]), row[1], row[2]));
+                figureInfoList.add(new FigureInfo(Integer.valueOf(row[0]), row[1], row[2], Boolean.valueOf(row[3])));
             }
             return figureInfoList.toArray(new FigureInfo[0]);
         } catch (IOException e) {

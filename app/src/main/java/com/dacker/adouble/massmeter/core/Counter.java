@@ -33,11 +33,11 @@ public class Counter {
 
     public void setFigure(Figure figure) {
         this.figure = figure;
-        expression = new Expression(figure.getFormula());
     }
 
     public void setValues(Map<String, Double> values) {
         this.values = values;
+        expression = new Expression(figure.getFormula());
         for (Map.Entry<String, Double> value : values.entrySet()) {
             expression.defineArgument(value.getKey(), value.getValue());
         }
@@ -67,5 +67,14 @@ public class Counter {
         if (values == null)
             return false;
         return values.isEmpty();
+    }
+
+    public String getValuesForPreset() {
+        String [] vars = figure.getVars().split(" ");
+        StringBuilder builder = new StringBuilder();
+        for (String var : vars) {
+            builder.append(values.get(var) + " ");
+        }
+        return builder.toString().substring(0, builder.toString().length() - 1);
     }
 }

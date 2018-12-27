@@ -6,9 +6,27 @@
     tools:context=".gui.SettingsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Settings" />
+        android:padding="12dp">
+    <ListView
+        android:choiceMode="singleChoice"
+        android:listSelector="#DDDDDD"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/settings_view">
+    </ListView>
+    <ListView
+        android:choiceMode="singleChoice"
+        android:listSelector="#DDDDDD"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:visibility="gone"
+        android:id="@+id/language_view"></ListView>
+
+    </FrameLayout>
 
 </FrameLayout>

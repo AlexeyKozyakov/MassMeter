@@ -1,9 +1,6 @@
 package com.dacker.adouble.massmeter.gui;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,8 +19,15 @@ import com.dacker.adouble.massmeter.R;
 import com.dacker.adouble.massmeter.core.Counter;
 import com.dacker.adouble.massmeter.db.Figure;
 import com.dacker.adouble.massmeter.db.FigureInfo;
+import com.dacker.adouble.massmeter.db.Preset;
 import com.dacker.adouble.massmeter.db.ReferenceDataBase;
+import com.dacker.adouble.massmeter.util.AssetLoader;
 import com.dacker.adouble.massmeter.util.FragmentReplacer;
+import com.dacker.adouble.massmeter.util.UnitUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class SecondStepFragment extends Fragment implements Step{
 
@@ -35,6 +39,10 @@ public class SecondStepFragment extends Fragment implements Step{
     private ImageView figureImage;
     private TextView result;
     private Spinner resultUnit;
+    private CountAdapter adapter;
+    private String [] vars;
+    private View resultContainer;
+    private int resultUnitPrev = UnitUtil.defaultLenUnit;
 
     @Override
     public void onCreate(Bundle saved) {
@@ -53,6 +61,32 @@ public class SecondStepFragment extends Fragment implements Step{
         initViews();
         setFigureImage();
         setupCountView();
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).previousCounterStep();
+            }
+        });
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).nextCounterStep();
+            }
+        });
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (adapter.validate()) {
+                    Preset preset = new Preset();
+                    preset.setFigure(Counter.getCounter().getFigure().getId());
+                    preset.setId(ReferenceDataBase.getInstance(getActivity()).referenceDao().getAllPresets().size());
+                    preset.setValues(Counter.getCounter().getValuesForPreset());
+                    preset.setMaterial(-1);
+                    ReferenceDataBase.getInstance(getActivity())
+                            .referenceDao().addPreset(preset);
+                }
+            }
+        });
     }
 
     private void initViews() {
@@ -64,6 +98,7 @@ public class SecondStepFragment extends Fragment implements Step{
         figureImage = getActivity().findViewById(R.id.figure_image);
         result = getActivity().findViewById(R.id.volume_res);
         resultUnit = getActivity().findViewById(R.id.volume_unit);
+        resultContainer = getActivity().findViewById(R.id.volum_results_layout);
     }
 
     private void setFigureImage() {
@@ -71,16 +106,34 @@ public class SecondStepFragment extends Fragment implements Step{
         int id = figure.getId();
         FigureInfo info = ReferenceDataBase.getInstance(getActivity()).referenceDao()
                 .getFigureInfo(id);
-        byte [] imageBytes = info.getFigureImage();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        Bitmap bitmap = AssetLoader.loadImageForFigure(getActivity(), info);
         figureImage.setImageBitmap(bitmap);
     }
 
     private void setupCountView() {
-        String [] vars = Counter.getCounter().getFigure().getVars().split(" ");
-        CountAdapter adapter = new CountAdapter(getActivity(), vars);
+        vars = Counter.getCounter().getFigure().getVars().split(" ");
+        adapter = new CountAdapter(getActivity(), vars, result, resultContainer,resultUnit);
         countView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getArguments() == null) {
+            setArguments(new Bundle());
+        }
+        adapter.saveState(getArguments());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getArguments() != null) {
+            adapter.loadState(getArguments());
+        }
+    }
+
 
     @Override
     public void show(AppCompatActivity activity) {
@@ -89,7 +142,8 @@ public class SecondStepFragment extends Fragment implements Step{
 
     @Override
     public boolean handleBackClick() {
-        return false;
+        ((MainActivity)getActivity()).previousCounterStep();
+        return true;
     }
 
 }

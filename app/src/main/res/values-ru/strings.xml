@@ -1,0 +1,18 @@
+<resources>
+
+    <string name="app_name">MassMeter</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="firstStepName">Фигура</string>
+    <string name="nextButtonText">Следующий</string>
+    <string name="figure_search_tooltip">Что искать</string>
+    <string name="dimensions_step_tittle">Размеры</string>
+    <string name="save_preset_text">Сохранить пресет</string>
+    <string name="volume_placeholder">Объём. %1$.4f</string>
+    <string name="variable_placeholder">%1$s =</string>
+    <string name="material_step_tittle">Материал</string>
+    <string name="mass_placeholder">Мас. %1$.4f</string>
+    <string name="mass_visible_ph">Мас. 0 </string>
+    <string name="historyName">Пресеты</string>
+    <string name="deletePresetText">Удалить пресет</string>
+    <string name="openPresetText">Открыть</string>
+</resources>

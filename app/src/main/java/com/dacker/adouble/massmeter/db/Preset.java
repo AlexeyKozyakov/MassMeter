@@ -20,6 +20,7 @@ public class Preset {
     @ColumnInfo(name = "variables")
     private String values;
 
+
     public String getValues() { return values; }
 
     public void setValues(String values) { this.values = values; }

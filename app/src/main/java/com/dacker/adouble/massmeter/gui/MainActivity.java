@@ -8,6 +8,7 @@ import android.view.Window;
 import android.widget.ImageButton;
 
 import com.dacker.adouble.massmeter.R;
+import com.dacker.adouble.massmeter.db.Preset;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         settingsButton = findViewById(R.id.settingsButton);
     }
 
-    private void showTab(TabsIndex index) {
+    public void showTab(TabsIndex index) {
         currentTab = getTab(index);
         currentTab.show(this);
     }
@@ -144,5 +145,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void nextCounterStep() {
         ((CounterTab)getTab(TabsIndex.COUNTER)).nextStep(this);
+    }
+
+    public void previousCounterStep() {
+        ((CounterTab)getTab(TabsIndex.COUNTER)).previousStep(this);
+    }
+
+    public void openCounterWithPreset(Preset preset) {
+        setPressedButton(counterButton);
+        counterButton.setImageResource(R.drawable.counter_white_icon);
+        pressedButtonRes = R.drawable.counter_icon;
+        ((CounterTab)getTab(TabsIndex.COUNTER)).openWithPreset(preset, this);
+    }
+
+    public void showCalculatorTab() {
+        setPressedButton(calculatorButton);
+        calculatorButton.setImageResource(R.drawable.calculator_white_icon);
+        pressedButtonRes = R.drawable.calculator_icon;
+        showTab(TabsIndex.CALCULATOR);
     }
 }

@@ -25,10 +25,14 @@ public class MaterialInfo {
     @ColumnInfo(name = "materialReference")
     private String materialReference;
 
-    public MaterialInfo(int materialid, String materialImage, String materialReference) {
+    @ColumnInfo(name = "builtIn")
+    private boolean builtIn;
+
+    public MaterialInfo(int materialid, String materialImage, String materialReference, boolean builtIn) {
         this.materialid = materialid;
         this.materialImage = materialImage;
         this.materialReference = materialReference;
+        this.builtIn = builtIn;
     }
 
     public int getMaterialid() {
@@ -39,11 +43,11 @@ public class MaterialInfo {
         this.materialid = materialid;
     }
 
-    public byte[] getMaterialImage() {
+    public String getMaterialImage() {
         return materialImage;
     }
 
-    public void setMaterialImage(byte[] materialImage) {
+    public void setMaterialImage(String materialImage) {
         this.materialImage = materialImage;
     }
 
@@ -55,15 +59,23 @@ public class MaterialInfo {
         this.materialReference = materialReference;
     }
 
-        public static MaterialInfo[] populateData(Context context){
+    public boolean getBuiltIn() {
+        return builtIn;
+    }
+
+    public void setBuiltIn(boolean builtIn) {
+        this.builtIn = builtIn;
+    }
+
+    public static MaterialInfo[] populateData(Context context){
             try {
                 CSVReader reader = new CSVReader(new InputStreamReader(context.getAssets().open("material_info.csv")));
                 List<MaterialInfo> materialInfos = new ArrayList<>();
                 String [] row;
                 while ((row = reader.readNext()) != null) {
-                    materialInfos.add(new MaterialInfo(Integer.valueOf(row[0]), row[1], row[2])));
+                    materialInfos.add(new MaterialInfo(Integer.valueOf(row[0]), row[1], row[2], Boolean.valueOf(row[3])));
                 }
-                return materialList.toArray(new Material[0]);
+                return materialInfos.toArray(new MaterialInfo[0]);
             } catch (IOException e) {
                 e.printStackTrace();
             }

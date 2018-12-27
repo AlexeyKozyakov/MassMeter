@@ -3,12 +3,180 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gui.ThirdStepFragment">
+    tools:context=".gui.FirstStepFragment"
+    android:background="#FFF">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:weightSum="100"
+        android:orientation="vertical"
+        android:focusableInTouchMode="true"
+        android:id="@+id/first_step_layout">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <View
+                android:layout_height="10dp"
+                android:layout_width="10dp"
+                android:background="@drawable/empty_circle"
+                android:layout_margin="4dp"/>
+            <View
+                android:layout_height="10dp"
+                android:layout_width="10dp"
+                android:background="@drawable/empty_circle"
+                android:layout_margin="5dp"/>
+            <View
+                android:layout_height="10dp"
+                android:layout_width="10dp"
+                android:background="@drawable/filled_circle"
+                android:layout_margin="4dp"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:text="@string/material_step_tittle"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="23sp"
+                android:id="@+id/material_tittle"/>
+
+            <ImageButton
+                android:id="@+id/back_button_st3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="38dp"
+                android:layout_toLeftOf="@+id/material_tittle"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:background="#FFFFFF"
+                android:src="@drawable/back_icon" />
+            <Button
+                android:id="@+id/save_button_st3"
+                android:layout_height="match_parent"
+                android:layout_width="90dp"
+                android:layout_toRightOf="@+id/material_tittle"
+                android:layout_marginLeft="13dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/next_button"
+                android:textColor="@drawable/next_button_text_color"
+                android:text="@string/save_preset_text"
+                android:textSize="12sp"
+                />
+        </RelativeLayout>
+        <android.support.v7.widget.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:id="@+id/search_material_st3"
+            android:hint="@string/figure_search_tooltip"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="69">
+            <LinearLayout
+                android:id="@+id/categories_layout_st3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:paddingTop="22dp"
+                android:paddingBottom="22dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp">
+                <ListView
+                    android:choiceMode="singleChoice"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="40"
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/category_view_st3"
+                    ></ListView>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#BBB"/>
+                <ListView
+                    android:choiceMode="singleChoice"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="60"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/material_view_st3"></ListView>
+            </LinearLayout>
+            <ListView
+                android:choiceMode="singleChoice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:visibility="gone"
+                android:id="@+id/material_search"></ListView>
+        </FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="11"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="80dp"
+                android:id="@+id/mass_res"
+                android:text="@string/mass_visible_ph"
+                android:textColor="@drawable/next_button_text_color"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="40dp"
+                />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/mass_res"
+                android:id="@+id/mass_spinner"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"/>
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="fitCenter"
+                android:layout_centerVertical="true"
+                android:adjustViewBounds="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="6.5dp"
+                android:layout_toRightOf="@+id/mass_spinner"
+                android:src="@drawable/goto_calculator"
+                android:id="@+id/goto_calculator"
+                android:background="#FFF" />
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="6.5dp"
+                android:layout_toRightOf="@+id/goto_calculator"
+                android:src="@drawable/info_icon"
+                android:background="#FFF"/>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </FrameLayout>
